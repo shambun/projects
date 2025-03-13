@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+joblib
+fastapi
+uvicorn
+imbalanced-learn
+matplotlib
+mlflow
+memory_profiler

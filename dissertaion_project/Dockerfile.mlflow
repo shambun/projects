@@ -1,0 +1,19 @@
+# Use official Python image
+FROM python:3.9-slim
+
+# Install MLflow and dependencies
+RUN pip install mlflow
+
+# Expose MLflow tracking port
+EXPOSE 5000
+
+# Set environment variables
+ENV MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+ENV MLFLOW_BACKEND_STORE_URI=sqlite:////app/mlflow.db
+ENV MLFLOW_ARTIFACT_ROOT=/app/artifacts
+
+# Create a directory for MLflow data
+RUN mkdir -p /app/artifacts
+
+# Start MLflow server
+CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000"]

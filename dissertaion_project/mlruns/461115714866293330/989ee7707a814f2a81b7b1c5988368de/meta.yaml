@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/shamb/BITS_Sem4/project_work/dissertaion_project/mlruns/461115714866293330/989ee7707a814f2a81b7b1c5988368de/artifacts
+end_time: 1740240332798
+entry_point_name: ''
+experiment_id: '461115714866293330'
+lifecycle_stage: active
+run_id: 989ee7707a814f2a81b7b1c5988368de
+run_name: trusting-wolf-52
+run_uuid: 989ee7707a814f2a81b7b1c5988368de
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740240309585
+status: 3
+tags: []
+user_id: shamb

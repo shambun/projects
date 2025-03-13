@@ -1,0 +1,11 @@
+services:
+  training:
+    image: shambun/ml-training:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 12Gi
+        reservations:
+          cpus: '1'
+          memory: 8Gi

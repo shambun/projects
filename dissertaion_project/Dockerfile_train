@@ -1,0 +1,25 @@
+# Use official Python image
+#FROM python:3.9-slim
+FROM python:3.9
+
+# Set working directory
+WORKDIR /app
+
+# Copy files
+COPY requirements.txt .
+COPY train.py .
+COPY data/ ./data/
+COPY models/ ./models/
+
+# Install dependencies and required system packages
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose MLflow tracking port (default: 5000)
+#EXPOSE 5000
+
+# Set environment variable for MLflow tracking URI (optional, remove if not needed)
+#ENV MLFLOW_TRACKING_URI=http://mlflow-service:5000
+
+# Run training script
+ENTRYPOINT ["python", "train.py"]

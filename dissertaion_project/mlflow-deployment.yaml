@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+        - name: mlflow
+          image: shambun/mlflow-custom:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MLFLOW_TRACKING_URI
+              value: "http://mlflow-service:5000"
+            - name: MLFLOW_BACKEND_STORE_URI
+              value: "sqlite:////app/mlflow.db"
+            - name: MLFLOW_ARTIFACT_ROOT
+              value: "/app/artifacts"
+          volumeMounts:
+            - name: mlflow-storage
+              mountPath: /app
+      volumes:
+        - name: mlflow-storage
+          persistentVolumeClaim:
+            claimName: mlflow-pvc

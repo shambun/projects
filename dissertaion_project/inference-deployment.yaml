@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-inference
+  template:
+    metadata:
+      labels:
+        app: ml-inference
+    spec:
+      containers:
+        - name: ml-inference
+          image: shambun/ml-inference:latest  # Use the pushed image
+          volumeMounts:
+            - name: model-storage
+              mountPath: /app/models  # Mount the PVC to this path
+          ports:
+            - containerPort: 8000  # Port for the inference service
+          env:
+            - name: MODEL_LOAD_PATH
+              value: "/app/models/train.joblib"  # Path to load the trained model
+            - name: ENCODER_LOAD_PATH
+              value: "/app/models/one_hot_encoder_feb11.pkl"  # Path to load the encoder
+            - name: TFIDF_LOAD_PATH
+              value: "/app/models/tfidf_vectorizer_feb11.pkl"  # Path to load the TF-IDF vectorizer
+            - name: LABEL_ENCODER_LOAD_PATH
+              value: "/app/models/complaint_label_encoder_feb11.pkl"  # Path to load the label encoder
+            - name: MLFLOW_TRACKING_URI
+              value: "http://mlflow-service:5000"  # MLflow tracking URL
+          resources:
+            requests:
+              memory: "1Gi"  # Adjust based on your requirements
+              cpu: "1"
+            limits:
+              memory: "2Gi"  # Adjust based on your requirements
+              cpu: "1"
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: model-pvc  # Ensure this PVC exists and contains the model artifacts

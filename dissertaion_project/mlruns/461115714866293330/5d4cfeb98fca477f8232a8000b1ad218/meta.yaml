@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/shamb/BITS_Sem4/project_work/dissertaion_project/mlruns/461115714866293330/5d4cfeb98fca477f8232a8000b1ad218/artifacts
+end_time: 1740528158363
+entry_point_name: ''
+experiment_id: '461115714866293330'
+lifecycle_stage: active
+run_id: 5d4cfeb98fca477f8232a8000b1ad218
+run_name: dashing-swan-187
+run_uuid: 5d4cfeb98fca477f8232a8000b1ad218
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740528112237
+status: 3
+tags: []
+user_id: shamb

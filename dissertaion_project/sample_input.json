@@ -1,0 +1,12 @@
+{
+    "CustomerID": "CUTTSC18736",
+    "CardNumber": "3377890440265668",
+    "BankName": "WELLS FARGO BANK NA",
+    "CardBrand": "DINERS CLUB INTERNATIONAL",
+    "CardType": "CREDIT",
+    "IssuingCountry": "UNITED STATES",
+    "TransactionAmount": 801.5,
+    "TransactionDate": "2025-02-9",
+    "Complaint": "Unauthorized Charge",
+    "Feedback": "customer not happy with service"
+}

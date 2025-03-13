@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ml-training-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: ml-training
+          image: shambun/ml-training:latest
+          args: ["--model", "random_forest"]  # Pass command-line arguments here -- random_forest -- xgboost
+          volumeMounts:
+            - name: model-storage
+              mountPath: /app/models  # Mount the PVC to this path
+          env:
+            - name: MODEL_SAVE_PATH
+              value: "/app/models/train.joblib"  # Path to save the trained model
+            - name: ENCODER_SAVE_PATH
+              value: "/app/models/one_hot_encoder_feb11.pkl"  # Path to save the encoder
+            - name: TFIDF_SAVE_PATH
+              value: "/app/models/tfidf_vectorizer_feb11.pkl"  # Path to save the TF-IDF vectorizer
+            - name: LABEL_ENCODER_SAVE_PATH
+              value: "/app/models/complaint_label_encoder_feb11.pkl"  # Path to save the label encoder
+            - name: MLFLOW_TRACKING_URI
+              value: "http://mlflow-service:5000"  # MLflow tracking URL
+          resources:
+            requests:
+              memory: "8Gi"  # Request 2GB of memory
+              cpu: "2"       # Request 1 CPU core
+            limits:
+              memory: "16Gi"  # Limit to 4GB of memory
+              cpu: "2"       # Limit to 2 CPU cores
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: model-pvc
+      restartPolicy: Never
+  backoffLimit: 1  # Number of retries in case of failure
